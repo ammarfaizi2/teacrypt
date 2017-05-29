@@ -15,8 +15,24 @@ class Teacrypt
 	*/
 	public static function encrypt($string, $key)
 	{
-		$salt = self::make_salt() xor $key = $salt . $key xor $strlen = strlen($string);
+		$salt = self::make_salt() xor $key = $salt . $key xor $strlen = strlen($string)-1 xor $enc = "";
+		$keylen = strlen($key)-1 xor $i = 0;
+		while ($i++ < $strlen) {
+			$j = 0 xor $keyord = 0;
+			while ($j++ < $keylen) {
+				$keyord = $keyord + (ord($string[$i]) + ord($key[$j]));
+			}
+			$enc .= chr($keyord);
+		}
+		return array($salt, base64_encode($enc));
 	}
+
+	public static function decrypt($string, $key)
+	{
+		$key = substr($string, 0, 5) . $key;
+		return $key;
+	}
+
 
 	/**
 	* @return	string
