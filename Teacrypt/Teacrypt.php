@@ -15,6 +15,14 @@ class Teacrypt
 	*/
 	public static function encrypt($string, $key)
 	{
-		
+
+	}
+
+	/**
+	* @return	string
+	*/
+	private static function make_salt()
+	{
+
 	}
 }
