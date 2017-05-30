@@ -11,10 +11,14 @@ class Teacrypt
 	/**
 	* @param	string	$string
 	* @param	string	$key
+	* @param	stirng	$salt	*salt must be 5 characters
 	* @return	string
 	*/
 	public static function encrypt($string, $key, $salt=null)
 	{
+		if (isset($salt) and strlen($salt)) {
+			throw new \Exception("Salt must be 5 characters !\n", 1);
+		}
 		$salt	= isset($salt) ? $salt : self::make_salt();
 		$key    = $salt . $key;
 	    $strlen = strlen($string);
