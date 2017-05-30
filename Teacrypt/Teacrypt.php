@@ -13,9 +13,9 @@ class Teacrypt
 	* @param	string	$key
 	* @return	string
 	*/
-	public static function encrypt($string, $key)
+	public static function encrypt($string, $key, $salt=null)
 	{
-		$salt	= self::make_salt();
+		$salt	= isset($salt) ? $salt : self::make_salt();
 		$key    = $salt . $key;
 	    $strlen = strlen($string);
 	    $keylen = strlen($key);
@@ -26,7 +26,7 @@ class Teacrypt
 	    	$k == $hslen and $k = 0;
 	    	$rt .= chr(ord($string[$i] ^ ($hash[$i % $hslen] ^ $key[$i % $keylen] ^ $hash[$k++ % $hslen]) ));
 	    }
-	    return strrev(base64_encode(strrev(gzdeflate($salt . $rt))));
+	    return strrev(base64_encode(strrev(gzdeflate(strrev($salt) . $rt))));
 	}
 
 	public static function decrypt($string, $key)
@@ -34,7 +34,7 @@ class Teacrypt
 		$string = gzinflate(strrev(base64_decode(strrev(($string)))));
 		$salt	= substr($string, 0, 5);
 		$string = substr($string, 5);
-		$key	= $salt . $key;
+		$key	= strrev($salt) . $key;
 	    $strlen = strlen($string);
 	    $keylen = strlen($key);
 	    $hash	= base64_encode(sha1($key));
