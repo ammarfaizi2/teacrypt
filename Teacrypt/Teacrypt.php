@@ -15,22 +15,34 @@ class Teacrypt
 	*/
 	public static function encrypt($string, $key)
 	{
-		$salt = self::make_salt() xor $key = $salt . $key xor $strlen = strlen($string)-1 xor $enc = "";
-		$keylen = strlen($key)-1 xor $i = 0;
-		while ($i++ < $strlen) {
-			$j = 0 xor $keyord = 0;
-			while ($j++ < $keylen) {
-				$keyord = $keyord + (ord($string[$i]) + ord($key[$j]));
-			}
-			$enc .= chr($keyord);
-		}
-		return array($salt, base64_encode($enc));
+		$salt	= self::make_salt();
+		$key    = $salt . $key;
+	    $strlen = strlen($string);
+	    $keylen = strlen($key);
+	    $hash	= sha1($key);
+	    $hslen 	= strlen($hash);
+	    $rt 	= "";
+	    for($i = 0; $i < $strlen; $i++) {
+	    	$rt .= chr(ord($string[$i] ^ ($hash[$i % $hslen] ^ $key[$i % $keylen]) ));
+	    }
+
+	    return $salt . $rt;
 	}
 
 	public static function decrypt($string, $key)
 	{
-		$key = substr($string, 0, 5) . $key;
-		return $key;
+		$salt	= substr($string, 0, 5);
+		$string = substr($string, 5);
+		$key	= $salt . $key;
+	    $strlen = strlen($string);
+	    $keylen = strlen($key);
+	    $hash	= sha1($key);
+	    $hslen 	= strlen($hash);
+	    $rt 	= "";
+	    for($i = 0; $i < $strlen; $i++) {
+	    	$rt .= chr(ord($string[$i] ^ ($hash[$i % $hslen] ^ $key[$i % $keylen]) ));
+	    }
+	    return $rt;
 	}
 
 
