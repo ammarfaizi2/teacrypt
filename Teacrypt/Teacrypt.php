@@ -21,11 +21,11 @@ class Teacrypt
 	    $keylen = strlen($key);
 	    $hash	= base64_encode(sha1($key));
 	    $hslen 	= strlen($hash);
-	    $rt 	= "";
+	    $rt 	= ""; $k = 0 ;
 	    for($i = 0; $i < $strlen; $i++) {
-	    	$rt .= chr(ord($string[$i] ^ ($hash[$i % $hslen] ^ $key[$i % $keylen]) ));
+	    	$k == $hslen and $k = 0;
+	    	$rt .= chr(ord($string[$i] ^ ($hash[$i % $hslen] ^ $key[$i % $keylen] ^ $hash[$k++ % $hslen]) ));
 	    }
-
 	    return $salt . $rt;
 	}
 
@@ -38,9 +38,10 @@ class Teacrypt
 	    $keylen = strlen($key);
 	    $hash	= base64_encode(sha1($key));
 	    $hslen 	= strlen($hash);
-	    $rt 	= "";
+	    $rt 	= ""; $k = 0;
 	    for($i = 0; $i < $strlen; $i++) {
-	    	$rt .= chr(ord($string[$i] ^ ($hash[$i % $hslen] ^ $key[$i % $keylen]) ));
+	    	$k == $hslen and $k = 0;
+	    	$rt .= chr(ord($string[$i] ^ ($hash[$i % $hslen] ^ $key[$i % $keylen] ^ $hash[$k++ % $hslen]) ));
 	    }
 	    return $rt;
 	}
