@@ -26,11 +26,12 @@ class Teacrypt
 	    	$k == $hslen and $k = 0;
 	    	$rt .= chr(ord($string[$i] ^ ($hash[$i % $hslen] ^ $key[$i % $keylen] ^ $hash[$k++ % $hslen]) ));
 	    }
-	    return $salt . $rt;
+	    return strrev(base64_encode(strrev(gzdeflate($salt . $rt))));
 	}
 
 	public static function decrypt($string, $key)
 	{
+		$string = gzinflate(strrev(base64_decode(strrev(($string)))));
 		$salt	= substr($string, 0, 5);
 		$string = substr($string, 5);
 		$key	= $salt . $key;
