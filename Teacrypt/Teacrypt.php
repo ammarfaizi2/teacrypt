@@ -9,10 +9,10 @@ namespace Teacrypt;
 class Teacrypt
 {
 	/**
-	* @param	string	$string
-	* @param	string	$key
+	* @param	string	$string	Pure string
+	* @param	string	$key	Key
 	* @param	stirng	$salt	*salt must be 5 characters
-	* @return	string
+	* @return	string	Encrypted String
 	*/
 	public static function encrypt($string, $key, $salt=null)
 	{
@@ -33,6 +33,11 @@ class Teacrypt
 	    return strrev(base64_encode(strrev(gzdeflate(strrev($salt) . $rt))));
 	}
 
+	/**
+	* @param	string	$string	Encrypted String
+	* @param	string	$key	Key
+	* @return	string	Decrypted String
+	*/
 	public static function decrypt($string, $key)
 	{
 		$string = gzinflate(strrev(base64_decode(strrev(($string)))));
