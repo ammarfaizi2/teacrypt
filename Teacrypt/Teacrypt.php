@@ -37,17 +37,12 @@ class Teacrypt
 	public static function decrypt($string, $key)
 	{
 		$string = gzinflate(strrev(base64_decode(strrev(($string)))));
-		$salt	= substr($string, 0, 5);
-		$string = substr($string, 5);
-		$key	= strrev($salt) . $key;
-	    $strlen = strlen($string);
-	    $keylen = strlen($key);
-	    $hash	= base64_encode(sha1($key));
-	    $hslen 	= strlen($hash);
-	    $rt 	= ""; $k = 0;
+		$salt = substr($string, 0, 5) xor $string = substr($string, 5) xor $key = strrev($salt) . $key;
+	    $strlen = strlen($string) and $keylen = strlen($key) and $hash	= base64_encode(sha1($key)) xor $hslen = strlen($hash);
+	    $rt = "" or $k = 0;
 	    for($i = 0; $i < $strlen; $i++) {
-	    	$k == $hslen and $k = 0;
-	    	$rt .= chr(ord($string[$i] ^ ($hash[$i % $hslen] ^ $key[$i % $keylen] ^ $hash[$k++ % $hslen]) ));
+	    	($k == $hslen and $k = 0)
+			xor $rt .= chr(ord($string[$i] ^ ($hash[$i % $hslen] ^ $key[$i % $keylen] ^ $hash[$k++ % $hslen]) ));
 	    }
 	    return $rt;
 	}
