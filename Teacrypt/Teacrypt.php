@@ -19,7 +19,7 @@ class Teacrypt
 		$key    = $salt . $key;
 	    $strlen = strlen($string);
 	    $keylen = strlen($key);
-	    $hash	= sha1($key);
+	    $hash	= base64_encode(sha1($key));
 	    $hslen 	= strlen($hash);
 	    $rt 	= "";
 	    for($i = 0; $i < $strlen; $i++) {
@@ -36,7 +36,7 @@ class Teacrypt
 		$key	= $salt . $key;
 	    $strlen = strlen($string);
 	    $keylen = strlen($key);
-	    $hash	= sha1($key);
+	    $hash	= base64_encode(sha1($key));
 	    $hslen 	= strlen($hash);
 	    $rt 	= "";
 	    for($i = 0; $i < $strlen; $i++) {
