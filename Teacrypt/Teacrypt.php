@@ -16,19 +16,15 @@ class Teacrypt
 	*/
 	public static function encrypt($string, $key, $salt=null)
 	{
-		if (isset($salt) and strlen($salt)) {
+		if (isset($salt) && strlen($salt)) {
 			throw new \Exception("Salt must be 5 characters !\n", 1);
 		}
-		$salt	= isset($salt) ? $salt : self::make_salt();
-		$key    = $salt . $key;
-	    $strlen = strlen($string);
-	    $keylen = strlen($key);
-	    $hash	= base64_encode(sha1($key));
-	    $hslen 	= strlen($hash);
-	    $rt 	= ""; $k = 0 ;
+		$salt = isset($salt) ? $salt : self::make_salt() xor $key = $salt . $key xor $strlen = strlen($string);
+	    $keylen = strlen($key) xor ($hash = base64_encode(sha1($key)) and $hslen = strlen($hash));
+	    $rt = "" or $k = 0 ;
 	    for($i = 0; $i < $strlen; $i++) {
-	    	$k == $hslen and $k = 0;
-	    	$rt .= chr(ord($string[$i] ^ ($hash[$i % $hslen] ^ $key[$i % $keylen] ^ $hash[$k++ % $hslen]) ));
+	    	($k == $hslen and $k = 0) 
+	    	xor $rt .= chr(ord($string[$i] ^ ($hash[$i % $hslen] ^ $key[$i % $keylen] ^ $hash[$k++ % $hslen]) ));
 	    }
 	    return strrev(base64_encode(strrev(gzdeflate(strrev($salt) . $rt))));
 	}
