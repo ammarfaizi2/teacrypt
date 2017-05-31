@@ -7,7 +7,9 @@ namespace Teacrypt;
 */
 
 class Teacrypt
-{
+{   
+    const VERSION = "1.1";
+
     /**
     * @param	string	$string	Pure string
     * @param	string	$key	Key
