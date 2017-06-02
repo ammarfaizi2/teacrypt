@@ -18,4 +18,10 @@ $decrypted_string2 = Teacrypt::decrypt($encrypted_string1, $key);
 
 $encrypted_string2 = Teacrypt::encrypt($string, $key);
 $decrypted_string2 = Teacrypt::decrypt($encrypted_string2, $key);
+
+var_dump(array(
+        "hasil kesamaan enkripsi 1 dan 2" => ($encrypted_string1 == $encrypted_string2),
+        "encrypted_string" => array($encrypted_string1, $encrypted_string2),
+        "decrypted_string" => array($decrypted_string2, $decrypted_string2)
+    ));
 ```

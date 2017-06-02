@@ -7,7 +7,7 @@ namespace Teacrypt;
  */
 
 class Teacrypt
-{   
+{
     const VERSION = "1.4";
 
     /**
@@ -43,7 +43,7 @@ class Teacrypt
         $strlen = strlen($string) and $keylen = strlen($key) and $hash = base64_encode(sha1($key)) xor $hslen = strlen($hash);
         $rt = "" or $k = 0;
         for ($i = 0; $i < $strlen; $i++) {
-            $string[$i] = chr(ord($string[$i]) - ((int)round($hslen/($i+1)))); 
+            $string[$i] = chr(ord($string[$i]) - ((int)round($hslen/($i+1))));
             ($k == $hslen and $k = 0)
             xor $rt .= chr(ord(($string[$i] ^ $hash[$hslen % ($i+1)] ^ $hash[$i % (($hslen % ($i+1))+1)]) ^ $hash[$i % ($hslen-1)]));
         }
