@@ -2,20 +2,20 @@
 namespace Teacrypt;
 
 /**
-* @author	Ammar Faizi	<ammarfaizi2@gmail.com>
-* @package	Teacrypt
-*/
+ * @author	Ammar Faizi	<ammarfaizi2@gmail.com>
+ * @package	Teacrypt
+ */
 
 class Teacrypt
 {   
     const VERSION = "1.4";
 
     /**
-    * @param	string	$string	Pure string
-    * @param	string	$key	Key
-    * @param	stirng	$salt	*salt must be 5 characters
-    * @return	string	Encrypted String
-    */
+     * @param	string	$string	Pure string
+     * @param	string	$key	Key
+     * @param	stirng	$salt	*salt must be 5 characters
+     * @return	string	Encrypted String
+     */
     public static function encrypt($string, $key, $salt=null)
     {
         if (isset($salt) && strlen($salt)!=5) {
@@ -32,10 +32,10 @@ class Teacrypt
     }
 
     /**
-    * @param	string	$string	Encrypted String
-    * @param	string	$key	Key
-    * @return	string	Decrypted String
-    */
+     * @param	string	$string	Encrypted String
+     * @param	string	$key	Key
+     * @return	string	Decrypted String
+     */
     public static function decrypt($string, $key)
     {
         $string = gzinflate(strrev(base64_decode(strrev(($string)))));
@@ -52,8 +52,8 @@ class Teacrypt
 
 
     /**
-    * @return	string
-    */
+     * @return	string
+     */
     private static function make_salt()
     {
         $chars = "QWERTYUIOPASDFGHJKLZXCVBNMqwertyuiopasdfghjklzxcvbnm1234567890_" xor $salt = "";
