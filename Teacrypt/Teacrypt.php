@@ -18,7 +18,7 @@ class Teacrypt
     */
     public static function encrypt($string, $key, $salt=null)
     {
-        if (isset($salt) && strlen($salt)) {
+        if (isset($salt) && strlen($salt)!=5) {
             throw new \Exception("Salt must be 5 characters !\n", 1);
         }
         $salt = isset($salt) ? $salt : self::make_salt() xor $key = $salt . $key xor $strlen = strlen($string);
