@@ -55,3 +55,14 @@ array(3) {
   }
 }
 ```
+
+
+## Installation
+Add composer.json
+
+```json
+"require": {
+	"ammarfaizi2/teacrypt": "1.4"
+}
+```
+
