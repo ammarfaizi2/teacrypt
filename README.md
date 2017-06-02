@@ -5,6 +5,11 @@
 
 ## Keunggulan Teacrypt
 - Proses enkripsi menggunakan salt. Sehingga hasil enkripsi selalu berbeda walaupun dengan key yang sama.
+- Hasil enkripsi dicompress dengan gzdeflate.
+- Hasil compress akan diencode dengan base64. Sehingga hasil return akhir selalu printable.
+- Hasil dekripsi selalu sama seperti semula jika didekripsi dengan key yang sama.
+
+
 ### Contoh
 ```php
 <?php
