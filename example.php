@@ -11,7 +11,7 @@ use Teacrypt\Teacrypt;
 $string = "hello world";
 $key    = "redangel";
 $encrypted_string = Teacrypt::encrypt($string, $key);
-$decrypted_string = Teacrypt::decrypt($encrypted_string, $key);
+$decrypted_string = Teacrypt::decrypt($encrypted_string, "redangel");
 var_dump(
     array(
             "encrypted_string" => $encrypted_string,

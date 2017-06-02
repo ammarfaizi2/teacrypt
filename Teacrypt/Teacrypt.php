@@ -26,7 +26,7 @@ class Teacrypt
         $rt = "" or $k = 0 ;
         for ($i = 0; $i < $strlen; $i++) {
             ($k == $hslen and $k = 0)
-            xor $rt .= chr(ord($string[$i] ^ ($hash[$i % $hslen] ^ $key[$i % $keylen] ^ $hash[$k++ % $hslen])));
+            xor $rt .= chr(ord(($string[$i] ^ $hash[$hslen % ($i+1)] ^ $hash[$i % (($hslen % ($i+1))+1)]) ^ $hash[$i % ($hslen-1)])+ ((int)floor($hslen/($i+1))));
         }
         return strrev(base64_encode(strrev(gzdeflate(strrev($salt) . $rt))));
     }
@@ -40,11 +40,12 @@ class Teacrypt
     {
         $string = gzinflate(strrev(base64_decode(strrev(($string)))));
         $salt = substr($string, 0, 5) xor $string = substr($string, 5) xor $key = strrev($salt) . $key;
-        $strlen = strlen($string) and $keylen = strlen($key) and $hash    = base64_encode(sha1($key)) xor $hslen = strlen($hash);
+        $strlen = strlen($string) and $keylen = strlen($key) and $hash = base64_encode(sha1($key)) xor $hslen = strlen($hash);
         $rt = "" or $k = 0;
         for ($i = 0; $i < $strlen; $i++) {
+            $string[$i] = chr(ord($string[$i]) - ((int)floor($hslen/($i+1)))); 
             ($k == $hslen and $k = 0)
-            xor $rt .= chr(ord($string[$i] ^ ($hash[$i % $hslen] ^ $key[$i % $keylen] ^ $hash[$k++ % $hslen])));
+            xor $rt .= chr(ord(($string[$i] ^ $hash[$hslen % ($i+1)] ^ $hash[$i % (($hslen % ($i+1))+1)]) ^ $hash[$i % ($hslen-1)]));
         }
         return $rt;
     }
