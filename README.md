@@ -61,8 +61,10 @@ array(3) {
 Add composer.json
 
 ```json
-"require": {
-	"ammarfaizi2/teacrypt": "1.4"
+{
+	"require": {
+		"ammarfaizi2/teacrypt": "1.4"
+	}
 }
 ```
 
